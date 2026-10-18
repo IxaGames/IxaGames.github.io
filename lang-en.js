@@ -45,6 +45,6 @@ window.I18N_EN = {
   'Bize yaz': 'Write to us',
   'Geri bildirim, hata bildirimi ya da işbirliği için.': 'For feedback, bug reports or collaboration.',
   '© 2026 Ixa Games · Tüm hakları saklıdır.': '© 2026 Ixa Games · All rights reserved.',
-  'Sözcük Ritmi gizlilik': 'Sözcük Ritmi privacy (Turkish)'
+  'Sözcük Ritmi gizlilik': 'Sözcük Ritmi privacy'
 };
 window.I18N_EN_RE = [];

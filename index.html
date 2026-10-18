@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ixa Games — Küçük oyunlar, büyük özen</title>
+<meta name="description" content="Ixa Games: Sözcük Ritmi, PitchTrace ve Aqua Toss gibi özenle yapılmış mobil oyunlar. Kapalı testlere katıl, oyunları ilk sen dene.">
+<meta property="og:title" content="Ixa Games">
+<meta property="og:description" content="Küçük oyunlar, büyük özen.">
+<meta property="og:image" content="img/ixa_mark.png">
+<meta name="theme-color" content="#05070A">
+<link rel="icon" href="img/ixa_mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#05070A;--panel:rgba(255,255,255,.045);--line:rgba(255,255,255,.12);--text:#F3F6FA;--muted:#9AA6B6;--a:#34C3B0;--b:#FFC93C;--accent:var(--a)}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;color-scheme:dark}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Space Grotesk',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:17px;line-height:1.6;overflow-x:hidden}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  h1,h2,h3{margin:0;line-height:1.05;letter-spacing:-.025em}
+  h2{font-size:clamp(2rem,4.6vw,3.4rem);font-weight:700}
+  .tag{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--a);font-weight:600}
+  .muted{color:var(--muted)}
+  #glow{position:fixed;width:520px;height:520px;border-radius:50%;pointer-events:none;z-index:0;left:0;top:0;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(52,195,176,.16),transparent 62%);transition:opacity .3s;opacity:0}
+  main,header,footer,nav{position:relative;z-index:1}
+
+  nav{position:fixed;inset:0 0 auto 0;z-index:30;background:rgba(5,7,10,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;height:62px;gap:26px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.14em;text-decoration:none;font-size:.95rem}
+  .logo img{width:34px;height:34px}
+  nav .l{margin-left:auto;display:flex;gap:26px}
+  nav .l a{text-decoration:none;color:var(--muted);font-weight:500;font-size:.95rem}
+  nav .l a:hover{color:#fff}
+  @media(max-width:640px){nav .l a:not(.keep){display:none}}
+
+  .hero{min-height:100svh;display:grid;place-items:center;text-align:center;padding:110px 0 70px;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 38%,rgba(52,195,176,.14),transparent 70%),radial-gradient(40% 35% at 70% 62%,rgba(255,201,60,.10),transparent 70%)}
+  .hero .mark{width:min(360px,64vw);margin:0 auto 18px;filter:drop-shadow(0 0 40px rgba(52,195,176,.45));animation:float 6s ease-in-out infinite;position:relative}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .hero h1{font-size:clamp(2.6rem,8vw,6.2rem);font-weight:700;position:relative}
+  .hero h1 span{background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{max-width:46ch;margin:20px auto 34px;color:var(--muted);font-size:1.2rem;position:relative}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;font-weight:600;text-decoration:none;font-family:inherit;font-size:1rem;border:1.5px solid var(--line);color:var(--text);background:var(--panel);transition:.25s;cursor:pointer}
+  .btn:hover{border-color:var(--accent);box-shadow:0 0 28px color-mix(in srgb,var(--accent) 35%,transparent);transform:translateY(-2px)}
+  .btn.fill{background:var(--accent);color:#04120F;border-color:transparent}
+  .scroll{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);width:26px;height:44px;border:2px solid var(--line);border-radius:14px}
+  .scroll::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--a);animation:sc 1.8s infinite}
+  @keyframes sc{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(16px)}}
+
+  section{padding:96px 0;position:relative}
+  .head{margin-bottom:46px;max-width:640px}
+  .head h2{margin-top:12px}
+
+  .game{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;padding:34px;border:1px solid var(--line);border-radius:34px;background:var(--panel);margin-bottom:26px;position:relative;overflow:hidden;transition:border-color .4s}
+  .game::before{content:"";position:absolute;inset:-40% -20% auto auto;width:70%;height:120%;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 22%,transparent),transparent 65%);opacity:.0;transition:opacity .5s;pointer-events:none}
+  .game:hover{border-color:color-mix(in srgb,var(--accent) 60%,transparent)}
+  .game:hover::before{opacity:1}
+  .game:nth-child(even){grid-template-columns:.95fr 1.05fr}
+  .game:nth-child(even) .info{order:2}
+  .game .shot{border-radius:22px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 60px rgba(0,0,0,.5);transform:rotate(-1.2deg);transition:transform .5s}
+  .game:nth-child(even) .shot{transform:rotate(1.2deg)}
+  .game:hover .shot{transform:rotate(0) scale(1.02)}
+  .game .top{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+  .game .top img{width:62px;height:62px;border-radius:16px;border:1px solid var(--line)}
+  .game h3{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:700}
+  .badge{display:inline-block;margin-top:6px;padding:3px 12px;border-radius:99px;border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);color:var(--accent);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+  .game p{color:var(--muted);margin:0 0 20px}
+  .game ul{margin:0 0 24px;padding:0;list-style:none;display:grid;gap:8px}
+  .game li{padding-left:22px;position:relative;font-size:.97rem}
+  .game li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:9px;border-radius:2px;background:var(--accent);transform:rotate(45deg)}
+  .btns{display:flex;flex-wrap:wrap;gap:12px}
+  .sr{--accent:#34C3B0}.pt{--accent:#FFB547}.aq{--accent:#3FA9F5}.kr{--accent:#A78BFA}
+  @media(max-width:860px){.game,.game:nth-child(even){grid-template-columns:1fr;padding:24px}.game:nth-child(even) .info{order:0}}
+  .soon-card{display:flex;gap:20px;align-items:center;padding:26px 30px;border:1px dashed var(--line);border-radius:28px}
+  .soon-card img{width:64px;height:64px;border-radius:16px;filter:saturate(.85)}
+
+  .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:800px){.cols{grid-template-columns:1fr}}
+  .p{padding:28px;border:1px solid var(--line);border-radius:26px;background:var(--panel);transition:.3s}
+  .p:hover{transform:translateY(-6px);border-color:var(--a)}
+  .p b{display:block;font-size:2.6rem;color:var(--a);line-height:1;margin-bottom:12px;font-weight:700}
+  .p h3{font-size:1.3rem;margin-bottom:8px}
+  .p p{margin:0;color:var(--muted);font-size:.98rem}
+
+  .join{border-radius:38px;padding:64px 26px;text-align:center;background:linear-gradient(135deg,rgba(52,195,176,.18),rgba(255,201,60,.12));border:1px solid var(--line);position:relative;overflow:hidden}
+  .join h2{margin:12px 0 14px}
+  .join p{max-width:54ch;margin:0 auto 26px;color:var(--muted)}
+  .steps{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:0 0 28px}
+  .steps span{padding:8px 16px;border:1px solid var(--line);border-radius:99px;font-size:.92rem}
+  .steps b{color:var(--b);margin-right:6px}
+
+  footer{border-top:1px solid var(--line);padding:42px 0 56px;color:var(--muted);font-size:.93rem}
+  footer .row{display:flex;flex-wrap:wrap;gap:16px 36px;justify-content:space-between;align-items:center}
+  footer a{text-decoration:none}footer a:hover{color:#fff}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s,transform .9s}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}#glow{display:none}}
+</style>
+</head>
+<body>
+<div id="glow" aria-hidden="true"></div>
+<nav><div class="wrap">
+  <a class="logo" href="#top"><img src="img/ixa_mark.png" alt="">IXA GAMES</a>
+  <div class="l"><a href="#oyunlar">Oyunlar</a><a href="#ilkeler">İlkelerimiz</a><a href="#test" class="keep">Teste katıl</a><a href="#iletisim">İletişim</a></div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <img class="mark" src="img/ixa_mark.png" alt="Ixa Games işareti">
+    <h1>Küçük oyunlar.<br><span>Büyük özen.</span></h1>
+    <p>Hesap yok, gereksiz izin yok. Kendi çizdiğimiz, kendi bestelediğimiz mobil oyunlar.</p>
+    <a class="btn fill" href="#oyunlar" style="--accent:#34C3B0">Oyunlara göz at ↓</a>
+  </div>
+  <div class="scroll" aria-hidden="true"></div>
+</header>
+
+<main>
+<section id="oyunlar"><div class="wrap">
+  <div class="head reveal"><span class="tag">Oyunlarımız</span><h2>Üç oyun, üç ayrı dünya</h2></div>
+
+  <article class="game sr reveal">
+    <div class="info">
+      <div class="top"><img src="img/sr_icon.png" alt=""><div><h3>Sözcük Ritmi</h3><span class="badge">Kapalı testte</span></div></div>
+      <p>Harfleri birleştir, kelimelerin ritmini yakala. Türkiye'yi bulmacayla gezdiren, her kelimede hecelerin melodisini çalan Türkçe kelime oyunu.</p>
+      <ul><li>300 bölüm, 15 bölgelik Türkiye yolculuğu</li><li>Hece ritmi, atasözü kapanışı, günün bulmacası</li><li>İnternetsiz oynanır</li></ul>
+      <div class="btns">
+        <a class="btn fill" href="https://groups.google.com/g/ixa-games" target="_blank" rel="noopener">Test grubuna katıl</a>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.ixagames.sozcukritmi" target="_blank" rel="noopener">Google Play'de aç</a>
+        <a class="btn" href="https://ixagames.github.io/sozcuk-ritmi/" target="_blank" rel="noopener">Oyunun sayfası</a>
+      </div>
+    </div>
+    <div class="shot"><img src="img/sr_feature.jpg" alt="Sözcük Ritmi tanıtım görseli" loading="lazy"></div>
+  </article>
+
+  <article class="game pt reveal">
+    <div class="info">
+      <div class="top"><img src="img/pt_icon.png" alt=""><div><h3>PitchTrace</h3><span class="badge">Kapalı testte</span></div></div>
+      <p>Bir tonu dinle, aklında tut, parmağınla yeniden bul. Işıktan dalgalarla süslü, sadece kulağına dayanan minimal bir ses hafızası oyunu.</p>
+      <ul><li>İpucu yok: sadece kulağın ve parmağın</li><li>Altı ışık dalgası stili</li><li>Adil, oran tabanlı puanlama</li></ul>
+      <div class="btns">
+        <a class="btn fill" href="https://groups.google.com/g/ixa-games" target="_blank" rel="noopener">Test grubuna katıl</a>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.ixagames.pitchtrace" target="_blank" rel="noopener">Google Play'de aç</a>
+      </div>
+    </div>
+    <div class="shot"><img src="img/pt_feature.jpg" alt="PitchTrace tanıtım görseli" loading="lazy"></div>
+  </article>
+
+  <article class="game aq reveal">
+    <div class="info">
+      <div class="top"><img src="img/aq_icon.png" alt=""><div><h3>Aqua Toss</h3><span class="badge">Kapalı testte</span></div></div>
+      <p>Pompala, dalgalandır, halkaları çubuklara geçir! Gerçek su fiziğiyle klasik halka oyuncağı cebinde.</p>
+      <ul><li>50 seviye, 5 farklı sualtı dünyası</li><li>Dalga ve Buz Kilidi güçlendiricileri</li><li>Günlük görevler ve başarımlar</li></ul>
+      <div class="btns">
+        <a class="btn fill" href="https://groups.google.com/g/ixa-games" target="_blank" rel="noopener">Test grubuna katıl</a>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.ixagames.aquatoss" target="_blank" rel="noopener">Google Play'de aç</a>
+      </div>
+    </div>
+    <div class="shot"><img src="img/aq_feature.jpg" alt="Aqua Toss tanıtım görseli" loading="lazy"></div>
+  </article>
+
+  <div class="soon-card reveal kr">
+    <img src="img/karo_icon.png" alt="">
+    <div><h3 style="font-size:1.4rem">Karo <span class="badge" style="margin-left:8px">Yakında</span></h3><p class="muted" style="margin:6px 0 0">Kendi fotoğraflarınla çevrimdışı yapboz. Parçaları sürükle ya da iki dokunuşla yer değiştir.</p></div>
+  </div>
+</div></section>
+
+<section id="ilkeler"><div class="wrap">
+  <div class="head reveal"><span class="tag">İlkelerimiz</span><h2>Nasıl oyun yapıyoruz?</h2></div>
+  <div class="cols">
+    <div class="p reveal"><b>01</b><h3>Özgün yapım</h3><p>Görsellerimizi ve müziğimizi bu oyunlar için üretiyoruz; her ayrıntı bilinçli seçilir.</p></div>
+    <div class="p reveal"><b>02</b><h3>Saygılı tasarım</h3><p>Reklamlar isteğe bağlı ve ödüllüdür; seni oyundan koparan sürprizler yok.</p></div>
+    <div class="p reveal"><b>03</b><h3>Gizliliğin önde</h3><p>Hesap sistemi yok, ad ve e-posta istemiyoruz. İlerlemen cihazında kalır.</p></div>
+  </div>
+</div></section>
+
+<section id="test"><div class="wrap">
+  <div class="join reveal">
+    <span class="tag">Kapalı test</span>
+    <h2>Oyunları ilk sen dene</h2>
+    <p>Üç oyunumuz kapalı testte. Görüşlerinle oyunları birlikte geliştirelim.</p>
+    <div class="steps"><span><b>1</b>Google hesabınla test grubuna katıl</span><span><b>2</b>Oyunları Google Play'den indir</span><span><b>3</b>14 gün testte kal, ara ara oyna</span></div>
+    <a class="btn fill" href="https://groups.google.com/g/ixa-games" target="_blank" rel="noopener" style="--accent:#FFC93C">Test grubuna katıl</a>
+  </div>
+</div></section>
+
+<section id="iletisim" style="padding-top:20px"><div class="wrap">
+  <div class="head reveal"><span class="tag">İletişim</span><h2>Bize yaz</h2><p class="muted" style="margin-top:14px">Geri bildirim, hata bildirimi ya da işbirliği için.</p></div>
+  <a class="btn fill reveal" href="mailto:studioixacode@gmail.com" style="--accent:#34C3B0">studioixacode@gmail.com</a>
+</div></section>
+</main>
+
+<footer><div class="wrap row">
+  <div class="logo"><img src="img/ixa_mark.png" alt="">IXA GAMES</div>
+  <div>© 2026 Ixa Games · Tüm hakları saklıdır.</div>
+  <div style="display:flex;gap:22px"><a href="https://ixagames.github.io/sozcuk-ritmi/gizlilik.html">Sözcük Ritmi gizlilik</a><a href="mailto:studioixacode@gmail.com">İletişim</a></div>
+</div></footer>
+
+<script>
+(function(){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+  var g=document.getElementById('glow');
+  if(matchMedia('(hover:hover)').matches){
+    window.addEventListener('pointermove',function(e){g.style.opacity=1;g.style.left=e.clientX+'px';g.style.top=e.clientY+'px'},{passive:true});
+  }
+})();
+</script>
+</body>
+</html>

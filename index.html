@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ixa Games — Bağımsız mobil oyun stüdyosu</title>
-<meta name="description" content="Ixa Games: Sözcük Ritmi, PitchTrace ve Aqua Toss gibi özenle yapılmış mobil oyunlar. Kapalı testlere katıl, oyunları ilk sen dene.">
+<meta name="description" content="Ixa Games: Sözcük Ritmi, PitchTrace ve Aqua Toss gibi özenle yapılmış mobil oyunlar. Oyunları Google Play'den indir, hemen oyna.">
 <meta property="og:title" content="Ixa Games">
 <meta property="og:description" content="Bağımsız mobil oyun stüdyosu.">
 <meta property="og:type" content="website">
@@ -14,7 +14,8 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#05070A">
-<link rel="icon" href="img/ixa_mark.png">
+<link rel="preload" as="image" href="img/ixa_hero.jpg">
+<link rel="icon" href="img/ixa_favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -36,23 +37,22 @@
   nav{position:fixed;inset:0 0 auto 0;z-index:30;background:rgba(5,7,10,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
   nav .wrap{display:flex;align-items:center;height:62px;gap:26px}
   .logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.14em;text-decoration:none;font-size:.95rem}
-  .logo img{width:34px;height:34px}
+  .logo img{width:36px;height:36px;border-radius:9px}
   nav .l{margin-left:auto;display:flex;gap:26px}
   nav .l a{text-decoration:none;color:var(--muted);font-weight:500;font-size:.95rem}
   nav .l a:hover{color:#fff}
   @media(max-width:640px){nav .l a:not(.keep){display:none}}
 
-  .hero{min-height:100svh;display:grid;place-items:center;text-align:center;padding:110px 0 70px;position:relative;overflow:hidden}
-  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 38%,rgba(52,195,176,.14),transparent 70%),radial-gradient(40% 35% at 70% 62%,rgba(255,201,60,.10),transparent 70%)}
-  .hero .mark{width:min(360px,64vw);margin:0 auto 18px;filter:drop-shadow(0 0 40px rgba(52,195,176,.45));animation:float 6s ease-in-out infinite;position:relative}
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-  .hero h1{font-size:clamp(2.6rem,8vw,6.2rem);font-weight:700;position:relative}
+  .hero{min-height:max(78svh,calc(56.25vw + 250px));display:flex;align-items:flex-end;text-align:center;padding:96px 0 56px;position:relative;overflow:hidden;background:var(--bg) url(img/ixa_hero.jpg) center top/100% auto no-repeat}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,10,.5) 0,rgba(5,7,10,0) 70px,rgba(5,7,10,0) calc(100% - 420px),rgba(5,7,10,.92) calc(100% - 190px),var(--bg) calc(100% - 100px))}
+  .hero .wrap{position:relative;width:100%}
+  .hero h1{font-size:clamp(1.9rem,5.2vw,3.6rem);font-weight:700;text-shadow:0 2px 24px rgba(0,0,0,.55)}
   .hero h1 span{background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .hero p{max-width:46ch;margin:20px auto 34px;color:var(--muted);font-size:1.2rem;position:relative}
+  .hero p{max-width:50ch;margin:16px auto 28px;color:#dfe6ee;font-size:1.15rem;text-shadow:0 1px 14px rgba(0,0,0,.6)}
   .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;font-weight:600;text-decoration:none;font-family:inherit;font-size:1rem;border:1.5px solid var(--line);color:var(--text);background:var(--panel);transition:.25s;cursor:pointer}
   .btn:hover{border-color:var(--accent);box-shadow:0 0 28px color-mix(in srgb,var(--accent) 35%,transparent);transform:translateY(-2px)}
   .btn.fill{background:var(--accent);color:#04120F;border-color:transparent}
-  .scroll{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);width:26px;height:44px;border:2px solid var(--line);border-radius:14px}
+  .scroll{display:none;position:absolute;bottom:26px;left:50%;transform:translateX(-50%);width:26px;height:44px;border:2px solid var(--line);border-radius:14px}
   .scroll::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--a);animation:sc 1.8s infinite}
   @keyframes sc{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(16px)}}
 
@@ -109,41 +109,29 @@
 <body>
 <div id="glow" aria-hidden="true"></div>
 <nav><div class="wrap">
-  <a class="logo" href="#top"><img src="img/ixa_mark.png" alt="">IXA GAMES</a>
-  <div class="l"><a href="#test" class="keep">Teste katıl</a><a href="#oyunlar">Oyunlar</a><a href="#ilkeler">İlkelerimiz</a><a href="#iletisim">İletişim</a><button class="btn" id="lang" type="button" style="padding:6px 14px;font-size:.85rem">EN</button></div>
+  <a class="logo" href="#top"><img src="img/ixa_icon.png" alt="">IXA GAMES</a>
+  <div class="l"><a href="#oyunlar" class="keep">Oyunlar</a><a href="#ilkeler">İlkelerimiz</a><a href="#iletisim">İletişim</a><button class="btn" id="lang" type="button" style="padding:6px 14px;font-size:.85rem">EN</button></div>
 </div></nav>
 
-<header class="hero" id="top">
+<header class="hero" id="top" role="img" aria-label="Ixa Games">
   <div class="wrap">
-    <img class="mark" src="img/ixa_mark.png" alt="Ixa Games işareti">
-    <h1>Bağımsız mobil<br><span>oyun stüdyosu.</span></h1>
+    <h1>Bağımsız mobil <span>oyun stüdyosu.</span></h1>
     <p>Sözcük Ritmi, PitchTrace ve Aqua Toss gibi oyunları kendimiz tasarlıyor, çiziyor ve besteliyoruz. Hesap açmanız gerekmez.</p>
-    <a class="btn fill" href="#test" style="--accent:#FFC93C">Teste katıl ↓</a> <a class="btn" href="#oyunlar">Oyunlara göz at</a>
+    <a class="btn fill" href="#oyunlar" style="--accent:#FFC93C">Oyunlara göz at ↓</a>
   </div>
-  <div class="scroll" aria-hidden="true"></div>
 </header>
 
 <main>
-<section id="test"><div class="wrap">
-  <div class="join reveal">
-    <span class="tag">Kapalı test</span>
-    <h2>Oyunları ilk sen dene</h2>
-    <p>Üç oyunumuz kapalı testte. Önce gruba katıl, sonra aşağıdan oyunları Google Play'de aç.</p>
-    <div class="steps"><span><b>1</b>Google hesabınla test grubuna katıl</span><span><b>2</b>Oyunları Google Play'den indir</span><span><b>3</b>14 gün testte kal, ara ara oyna</span></div>
-    <a class="btn fill" href="https://groups.google.com/g/ixa-games" target="_blank" rel="noopener" style="--accent:#FFC93C">Test grubuna katıl</a>
-  </div>
-</div></section>
-
 <section id="oyunlar"><div class="wrap">
   <div class="head reveal"><span class="tag">Oyunlarımız</span><h2>Üç oyun, üç ayrı dünya</h2></div>
 
   <article class="game sr reveal">
     <div class="info">
-      <div class="top"><img src="img/sr_icon.png" alt=""><div><h3>Sözcük Ritmi</h3><span class="badge">Kapalı testte</span></div></div>
+      <div class="top"><img src="img/sr_icon.png" alt=""><div><h3>Sözcük Ritmi</h3><span class="badge">Google Play</span></div></div>
       <p>Harfleri birleştir, kelimelerin ritmini yakala. Türkiye'yi bulmacayla gezdiren, her kelimede hecelerin melodisini çalan Türkçe kelime oyunu.</p>
       <ul><li>300 bölüm, 15 bölgelik Türkiye yolculuğu</li><li>Hece ritmi, atasözü kapanışı, günün bulmacası</li><li>İnternetsiz oynanır</li></ul>
       <div class="btns">
-        <a class="btn fill" href="https://play.google.com/store/apps/details?id=com.ixagames.sozcukritmi" target="_blank" rel="noopener">Google Play'de aç</a>
+        <a class="btn fill" href="https://play.google.com/store/apps/details?id=com.ixa.sozcukritmi" target="_blank" rel="noopener">Google Play'de aç</a>
         <a class="btn" href="https://ixagames.github.io/sozcuk-ritmi/" target="_blank" rel="noopener">Oyunun sayfası</a>
       </div>
     </div>
@@ -152,11 +140,11 @@
 
   <article class="game pt reveal">
     <div class="info">
-      <div class="top"><img src="img/pt_icon.png" alt=""><div><h3>PitchTrace</h3><span class="badge">Kapalı testte</span></div></div>
+      <div class="top"><img src="img/pt_icon.png" alt=""><div><h3>PitchTrace</h3><span class="badge">Yakında</span></div></div>
       <p>Bir tonu dinle, aklında tut, parmağınla yeniden bul. Işıktan dalgalarla süslü, sadece kulağına dayanan minimal bir ses hafızası oyunu.</p>
       <ul><li>İpucu yok: sadece kulağın ve parmağın</li><li>Altı ışık dalgası stili</li><li>Adil, oran tabanlı puanlama</li></ul>
       <div class="btns">
-        <a class="btn fill" href="https://play.google.com/store/apps/details?id=com.ixagames.pitchtrace" target="_blank" rel="noopener">Google Play'de aç</a>
+        <span class="btn" style="opacity:.7;cursor:default">Yakında Google Play'de</span>
       </div>
     </div>
     <div class="shot"><img src="img/pt_feature.jpg" alt="PitchTrace tanıtım görseli" loading="lazy"></div>
@@ -164,11 +152,11 @@
 
   <article class="game aq reveal">
     <div class="info">
-      <div class="top"><img src="img/aq_icon.png" alt=""><div><h3>Aqua Toss</h3><span class="badge">Kapalı testte</span></div></div>
+      <div class="top"><img src="img/aq_icon.png" alt=""><div><h3>Aqua Toss</h3><span class="badge">Google Play</span></div></div>
       <p>Pompala, dalgalandır, halkaları çubuklara geçir! Gerçek su fiziğiyle klasik halka oyuncağı cebinde.</p>
       <ul><li>50 seviye, 5 farklı sualtı dünyası</li><li>Dalga ve Buz Kilidi güçlendiricileri</li><li>Günlük görevler ve başarımlar</li></ul>
       <div class="btns">
-        <a class="btn fill" href="https://play.google.com/store/apps/details?id=com.ixagames.aquatoss" target="_blank" rel="noopener">Google Play'de aç</a>
+        <a class="btn fill" href="https://play.google.com/store/apps/details?id=com.ixa.aquatoss" target="_blank" rel="noopener">Google Play'de aç</a>
       </div>
     </div>
     <div class="shot"><img src="img/aq_feature.jpg" alt="Aqua Toss tanıtım görseli" loading="lazy"></div>
@@ -198,8 +186,8 @@
 </main>
 
 <footer><div class="wrap row">
-  <div class="logo"><img src="img/ixa_mark.png" alt="">IXA GAMES</div>
-  <div>© 2026 Ixa Games · Tüm hakları saklıdır.</div>
+  <div class="logo"><img src="img/ixa_icon.png" alt="">IXA GAMES</div>
+  <div>© 2026 Ixa Games (Studio Ixa) · Tüm hakları saklıdır.</div>
   <div style="display:flex;gap:22px"><a href="https://ixagames.github.io/sozcuk-ritmi/gizlilik.html">Sözcük Ritmi gizlilik</a><a href="mailto:studioixacode@gmail.com">İletişim</a></div>
 </div></footer>
 
